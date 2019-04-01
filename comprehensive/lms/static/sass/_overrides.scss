@@ -438,3 +438,188 @@ table.faq-table {
 #msccLearnMore {
     color: $ms-color !important;
 }
+ //------------------
+// MAU OVERRIDES
+//------------------
+
+.home{
+    background: ghostwhite !important;
+}
+
+.course-info header.course-profile {
+    box-sizing: content-box;
+}
+
+.no-padding{
+    padding: 0;
+}
+
+.track-container{
+    padding-left: 5vw;
+    padding-right: 5vw;
+    margin: auto;
+    max-width: calc(1600px + 10vw);
+}
+
+.track-box{
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+}
+.track-title{
+   color: white;
+   font-weight: lighter;
+   margin-bottom: 3% !important;
+}
+
+.track-description{
+   color:white;
+   margin-bottom: 5%;
+}
+
+.track-link{
+   color: white;
+   border-radius: 0;
+}
+
+.track-image{
+
+}
+
+.gap{
+   height: 3em;
+   background: ghostwhite;
+   position: relative;
+}
+
+.header-title{
+   text-align: left;
+}
+
+.header-description{
+   padding-bottom: 3em;
+   line-height: 1.5;
+}
+.wrapper-footer{
+   position: relative;
+}
+
+.container-cover{
+   position: relative;
+}
+
+.track-box-2:hover
+{
+   background-color: aliceblue !important;
+   transition: all 0.5s ease;
+}
+
+.hvr-float {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-float:hover, .hvr-float:focus, .hvr-float:active {
+  -webkit-transform: translateY(-8px);
+  transform: translateY(-8px);
+  background: #E2EBF8 !important;
+}
+
+.expanded{
+ display: block !important;
+ padding: 4%;
+}
+
+.carousel-control{
+ width: 5% !important;
+}
+
+.carousel-indicators {
+    bottom: 0em !important;
+}
+
+.caption{
+    position: absolute;
+    bottom: calc(35%);
+    left: 10%;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 4px 2px rgba(0,0,0,.6);
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    text-shadow: none;
+    border-radius: 0;
+}
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #5a6268 !important;
+    border-color: #545b62 !important;
+    text-decoration:underline;
+}
+.car-button{
+  background-color: rgba(52, 73, 94, 1);
+}
+
+.car-button:hover{
+  animation: bgchange 2s linear infinite;
+}
+
+@keyframes bgchange{
+  0%{
+    background-color: rgba(52, 73, 94, 1);
+  }
+
+  50%{
+    background-color: rgba(52, 73, 94, 0.7);
+  }
+
+  100%{
+    background-color: rgba(52, 73, 94, 1);
+  }
+}
+.slider-size {
+  height: 35em;
+}
+.car-head{
+    font-size: 2em;
+    color:white;
+    font-weight:600;
+    line-height:1;
+}
+.car-text{
+    font-size:1.5em;
+    line-height:1;
+}
+.nudge-2{
+    margin-top: 2%;
+}
+.nudge-4{
+    margin-top: 4%;
+}
+.bring-front{
+    z-index: 1;
+}
+.filler{
+    background-image: url(https://i.imgur.com/1Svyuyi.png);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 16em;
+    opacity: 0.3;
+}
+

@@ -24,6 +24,18 @@ from pipeline_mako import render_require_js_path_overrides
 <!--[if lte IE 9]><html class="ie ie9 lte9" lang="${LANGUAGE_CODE}"><![endif]-->
 <!--[if !IE]><!--><html lang="${LANGUAGE_CODE}"><!--<![endif]-->
 <head dir="${static.dir_rtl()}">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125627448-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125627448-2');
+</script>
+
+
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,6 +69,12 @@ from pipeline_mako import render_require_js_path_overrides
   %>
 
   <script type="text/javascript" src="${static.url(jsi18n_path)}"></script>
+  <script type="text/javascript" src="${static.url(jsi18n_path)}"></script>
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script type="text/javascript" src="https://unpkg.com/popper.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   <link rel="icon" type="image/x-icon" href="${static.url(static.get_value('favicon_path', settings.FAVICON_PATH))}" />
 

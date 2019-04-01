@@ -9,57 +9,95 @@ from openedx.core.djangolib.markup import HTML, Text
 %>
 
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${_("Welcome to CloudSwyft Apollo Academy!")}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h2>${_("Learn Modern 21st Century Technology Skills, Today!")}</h2>
-              % endif
+    <section class="home" style="background-color: ghostwhite;">
+<!-- Carousel Fixed Height -->
+<section class="carousel-fixed-height">
+    <div id="carousel-fixed-height" style="z-index:1;" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-fixed-height" data-slide-to="0" class=""></li>
+        <li data-target="#carousel-fixed-height" data-slide-to="1" class=""></li>
+        <li data-target="#carousel-fixed-height" data-slide-to="2" class="active"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item">
+          <div carousel style="background:url('https://i.imgur.com/Tp5XzjT.jpg') center center; background-size:cover;" class="slider-size">
+            <div class="caption" style="bottom: calc(36%) !important;">
+              <h2 class="car-head" style="">Microsoft Software Development Track</h2>
+              <p class="car-text" style="">Bring life to the modern world through software </p>
+              <p  class="car-text nudge-2"style="">Gain skills needed for one of the fastest growing careers today</p>
+              <div class="nudge-4" style="">
+                 <a type="button" href="/tracks/software-development/" class="btn btn-secondary car-button">Learn More</a>
+              </div>
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="item">
+          <div style="background:url('https://i.imgur.com/9wpf7lC.jpg') center center; background-size:cover;" class="slider-size">
+            <div class="caption">
+              <h2 class="car-head" style="">Microsoft Artificial Intelligence Track</h2>
+              <p class="car-text" style="">Help build an increasingly intelligent world</p>
+              <p class="car-text nudge-2" style="">Take the Microsoft A.I. track now</p>
+              <div class="nudge-4" style="">
+                 <a type="button" href="/tracks/ai" class="btn btn-secondary car-button">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item active">
+          <div style="background:url('https://i.imgur.com/SVV7bhX.jpg') center center; background-size:cover;" class="slider-size">
+           <div class="caption">
+              <h2 class="car-head" style="">Microsoft Data Science Track</h2>
+              <p class="car-text" style="">Learn the skills needed for the most in demand career of the 21st century</p>
+              <p class="car-text nudge-2" style="">Begin your journey in Data Science</p>
+              <div class="nudge-4" style="">
+                 <a type="button" href="/tracks/data-science" class="btn btn-secondary car-button">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#carousel-fixed-height" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-fixed-height" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
   </section>
-% endif
+  <!-- /end Carousel Fixed Height -->
+
+	<div class="filler"></div>
+        <div class="track-container containter-cover">
+        <%include file="track_list.html" />
+        </div>     
+
+<!-- <div id="modal" class="hidden-xs modal home-page-video-modal video-modal" style="position:fixed; top:25%;left: 29%;">
+	<div class="modal-header">
+    		<button id="close" type="button" style="float:right; margin-bottom: 1%" class="close full-height" data-dismiss="modal" aria-hidden="true">X</button>
+	<div class="inner-wrapper">
+        	<iframe width="640" height="360" src="https://www.youtube.com/embed/RTtfa_6EgpY?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  	</div>
+</div> -->
+   </section>
+</main>
+
+
+<!--<script type="text/javascript">
+$(document).ready(function() {
+    $("#modal").delay(2000).fadeIn(500);
+});
+
+
+var button = document.getElementById('close');
+
+button.onclick = function() {
+    var div = document.getElementById('modal');
+    div.style.display = 'none';
+    div.parentNode.removeChild(div);
+};
+</script> -->
 
 <%block name="js_extra">
    <script type="text/javascript">

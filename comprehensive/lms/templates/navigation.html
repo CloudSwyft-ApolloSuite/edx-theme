@@ -47,9 +47,8 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-    <div id="cookie-markup" class="cookie-markup"> </div> 
-    <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
-    <nav class="nav-wrapper wrapper-header" aria-label="${_('Global')}">
+  <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
+    <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
         <%block name="navigation_logo">
@@ -60,7 +59,7 @@ site_status_msg = get_site_status_msg(course_id)
             logo_url = branding_api.get_logo_url(is_secure)
             logo_size = ''
         %>
-            <img class="${logo_size}" src="${logo_url}" width="108" height="23" vspace="15" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
+            <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
         </%block>
       </a>
     </h1>
@@ -101,13 +100,17 @@ site_status_msg = get_site_status_msg(course_id)
           %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
             <li class="item">
               ## Translators: This is short for "System administration".
-              <a href="${reverse('sysadmin')}">${_("System Admin")}</a>
+              <a href="${reverse('sysadmin')}">${_("Sysadmin")}</a>
             </li>
           %endif
         </%block>
       </ol>
 
       <%include file="user_dropdown.html"/>
+
+      <a href="${get_online_help_info(online_help_token)['doc_url']}" 
+         target="_blank"
+         class="doc-link">${_("Help")}</a>
 
       % if should_display_shopping_cart_func() and not (course and static.is_request_in_themed_site()): # see shoppingcart.context_processor.user_has_cart_context_processor
         <ol class="user">
@@ -138,10 +141,19 @@ site_status_msg = get_site_status_msg(course_id)
 
         <%block name="navigation_other_global_links">
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY') or course:
+            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
                 <a class="btn" href="/courses">${_("Explore Courses")}</a>
-	      </li>
+              </li>
+            %endif
+            % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+              <li class="item nav-global-04">
+                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
+              </li>
+            % else:
+              <li class="item nav-global-04">
+                <a class="btn-neutral" href="/register${login_query()}">${_("Register")}</a>
+              </li>
             % endif
           % endif
         </%block>
@@ -149,23 +161,12 @@ site_status_msg = get_site_status_msg(course_id)
 
       <ol class="right nav-courseware list-inline">
         <%block name="navigation_sign_in">
-		% if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
-			% if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-			  <li class="item nav-global-04">
-				<a class="btn-neutral btn-register" style="padding:10px 20px;" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register Now")}</a>
-			  </li>
-			% else:
-			  <li class="item nav-global-04">
-				<a class="btn-neutral btn-register" style="padding:10px 20px;" href="/register${login_query()}">${_("Register Now")}</a>
-			  </li>
-			% endif
-		% endif
           <li class="item nav-courseware-01">
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-                <a class="btn btn-primary" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
+                <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
               % else:
-                <a class="btn btn-primary" href="/login${login_query()}">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/login${login_query()}">${_("Sign in")}</a>
               % endif
             % endif
           </li>
@@ -214,7 +215,3 @@ site_status_msg = get_site_status_msg(course_id)
 % endif
 
 <%include file="help_modal.html"/>
-
-## Track the user consent based on the consent cookie availability
-<script type="text/javascript" src=${static.url('cookieBanner.js')}></script>
-
